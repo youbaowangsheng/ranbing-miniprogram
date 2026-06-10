@@ -1,5 +1,6 @@
 // pages/login/register.js
 const { sendCode, register, loginByPassword } = require('../../services/auth.js')
+const { updateProfile } = require('../../services/api.js')
 
 Page({
   data: {
@@ -61,18 +62,7 @@ Page({
   },
 
   async setPassword(password) {
-    const token = wx.getStorageSync('token')
-    if (!token) return
-    return new Promise((resolve, reject) => {
-      wx.request({
-        url: 'https://www.asiamlhk.com/api/v1/profiles/me/',
-        method: 'PUT',
-        data: { password },
-        header: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        success: res => resolve(res.data),
-        fail: reject
-      })
-    })
+    return updateProfile({ password })
   },
 
   async doRegister() {

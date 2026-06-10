@@ -27,7 +27,7 @@ function request(path, method = 'GET', data = null) {
           reject(new Error(errMsg || '请求失败'))
         }
       },
-      fail: err => reject(err)
+      fail: err => reject(new Error(err.errMsg || '网络错误'))
     })
   })
 }
